@@ -1,5 +1,5 @@
-#opt10081 : 주식일봉차트조회요청
-#부가설명 : 입력한 날짜 기준으로 과거의 시가 저가 고가 종가를 받아올 수 있음.
+#opt10082 : 주식주봉차트조회요청
+#부가설명 : 입력한 날짜 기준으로 주봉에 대하여 과거의 시가 저가 고가 종가를 받아올 수 있음.
 
 import sys
 from PyQt5.QtWidgets import *
@@ -23,15 +23,16 @@ class Program(QMainWindow):
             self.requestTrData(0)  # 로그인 성공이 확인된 후에만 요청을 할 수 있다.
 
     def requestTrData(self, c):
-            self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "종목코드", "035420")  # 종목코드
+            self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "종목코드", "035420")    # 종목코드
             self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "기준일자", "20180118")  # 조회할 날짜
-            self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "수정주가구분", "0")   # 0 or 1, 1: 유상증자, 2: 무상증자, 4: 배당락, 8: 액면불할, 16: 액면병합, 32: 기업합병, 64: 감자, 256: 권리락
-            self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", "opt10081_req", "opt10081", c, "0766") # 사용사요청명칭 / 요청함수 / 초기조회:0, 연속조회:2 / 화면번호
+            self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "끝일자", "")            # 조회할 끝구간을 의미하나 값을 넣어도 작동안함
+            self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "수정주가구분","0")  # 0 or 1, 1: 유상증자, 2: 무상증자, 4: 배당락, 8: 액면불할, 16: 액면병합, 32: 기업합병, 64: 감자, 256: 권리락
+            self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", "opt10082_req", "opt10082", c, "0766") # 사용사요청명칭 / 요청함수 / 초기조회:0, 연속조회:2 / 화면번호
 
     def receiveTrData(self, screen_no, rqname, trcode, recordname, prev_next, data_len, err_code, msg1, msg2):
-        if rqname == "opt10081_req":
+        if rqname == "opt10082_req":
             print(prev_next)
-            for i in range(800): # 한번 요청에 600일의 정보가 들어오는데 혹시몰라서 큰 값으로 잡음.
+            for i in range(400): # 한번 요청에 300개의 정보가 들어오는데 혹시몰라서 큰 값으로 잡음.
                 date = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, i, "일자")
 
                 if (date == ""):

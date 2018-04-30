@@ -1,5 +1,5 @@
-#opt10081 : 주식일봉차트조회요청
-#부가설명 : 입력한 날짜 기준으로 과거의 시가 저가 고가 종가를 받아올 수 있음.
+#opt10079 : 주식틱차트조회요청
+#부가설명 : 1, 3, 5, 10, 30틱 봉의 데이터를 각각 얻을 수 있음. 코드상으로 보면 분봉차트조회요청과 별반 다를게 없음.
 
 import sys
 from PyQt5.QtWidgets import *
@@ -24,28 +24,25 @@ class Program(QMainWindow):
 
     def requestTrData(self, c):
             self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "종목코드", "035420")  # 종목코드
-            self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "기준일자", "20180118")  # 조회할 날짜
+            self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "틱범위", "1")  # 1: 1틱, 3: 3틱, 5: 5틱, 10: 10틱, 30: 30틱
             self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "수정주가구분", "0")   # 0 or 1, 1: 유상증자, 2: 무상증자, 4: 배당락, 8: 액면불할, 16: 액면병합, 32: 기업합병, 64: 감자, 256: 권리락
-            self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", "opt10081_req", "opt10081", c, "0766") # 사용사요청명칭 / 요청함수 / 초기조회:0, 연속조회:2 / 화면번호
+            self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", "opt10079_req", "opt10079", c, "0766") # 사용사요청명칭 / 요청함수 / 초기조회:0, 연속조회:2 / 화면번호
 
     def receiveTrData(self, screen_no, rqname, trcode, recordname, prev_next, data_len, err_code, msg1, msg2):
-        if rqname == "opt10081_req":
+        if rqname == "opt10079_req":
             print(prev_next)
-            for i in range(800): # 한번 요청에 600일의 정보가 들어오는데 혹시몰라서 큰 값으로 잡음.
-                date = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, i, "일자")
+            for i in range(1000): # 한번 요청에 900개의 봉 정보가 들어오는데 혹시몰라서 큰 값으로 잡음.
+                dealTime = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, i, "체결시간")
 
-                if (date == ""):
+                if (dealTime == ""):
                     break
                 currentPrice = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, i, "현재가")
                 startPrice = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, i, "시가")
                 highPrice = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, i, "고가")
                 lowPrice = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, i, "저가")
                 volumeCount = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, i, "거래량")
-                volumeMoney = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, i, "거래대금")
 
-
-                print(i, date.strip(), "\t", currentPrice.strip(), "\t", startPrice.strip(), "\t", highPrice.strip(), "\t", lowPrice.strip(), "\t", volumeCount.strip(), "\t", volumeMoney.strip())
-
+                print(i, dealTime.strip(), "\t", currentPrice.strip(), "\t", startPrice.strip(), "\t", highPrice.strip(), "\t", lowPrice.strip(), "\t", volumeCount.strip())
 
             if (prev_next == '2'):
                 print("연속조회")
