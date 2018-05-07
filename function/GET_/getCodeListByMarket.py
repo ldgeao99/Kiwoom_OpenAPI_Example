@@ -1,3 +1,4 @@
+#GetCodeListByMarket, GetMasterCodeName을 이용해 시장의 종목코드와 한글이름을 가져올 수 있음
 
 import sys
 from PyQt5.QtWidgets import *
@@ -25,7 +26,6 @@ class Program(QMainWindow):
             for code in kospi_code_list:
                 name = self.kiwoom.dynamicCall("GetMasterCodeName(QString)", [code])
                 kospi_code_name_list.append(code + " : " + name)
-
 
             print(kospi_code_name_list)
             print(len(kospi_code_name_list))
