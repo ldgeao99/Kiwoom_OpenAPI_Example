@@ -23,8 +23,8 @@ try:
 
 
     #stock_code스키마 하위에 kospi, kosdaq 테이블을 생성
-    cursor.execute("create TABLE IF NOT EXISTS stock_code.kospi(code varchar(6) NOT NULL PRIMARY KEY, name varchar(20) NOT NULL);")
-    cursor.execute("create TABLE IF NOT EXISTS stock_code.kosdaq(code varchar(6) NOT NULL PRIMARY KEY, name varchar(20) NOT NULL);")
+    cursor.execute("create TABLE IF NOT EXISTS stock_code.kospi(code varchar(6) NOT NULL PRIMARY KEY, name varchar(40) NOT NULL);")
+    cursor.execute("create TABLE IF NOT EXISTS stock_code.kosdaq(code varchar(6) NOT NULL PRIMARY KEY, name varchar(40) NOT NULL);")
 
     code1 = "01233"
     name1 = "삼성전자"

@@ -1,4 +1,4 @@
-#GetCodeListByMarket, GetMasterCodeName을 이용해 시장의 종목코드와 한글이름을 가져올 수 있음
+#GetCodeListByMarket, GetMasterCodeName을 이용해 시장에 따른 전체 종목코드와 한글이름을 가져올 수 있음
 
 import sys
 from PyQt5.QtWidgets import *
