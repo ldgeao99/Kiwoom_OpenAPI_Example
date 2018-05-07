@@ -16,7 +16,7 @@ try:
 
 
     #[date_info, curr_money, updown_icon, indi_holder, orga_holder, forg_holder, finance_holder, insurance_holder, tusin_holder, bank_holder, etcFinance_holder, yeongi_holder, samofund_holder, country_holder, etcLaw_holder, naeforg_holder]
-    cursor.execute("INSERT INTO opt10059schema.table_035420(date_info, curr_money, updown_icon, indi_holder, orga_holder, forg_holder, finance_holder, insurance_holder, tusin_holder, bank_holder, etcFinance_holder, yeongi_holder, samofund_holder, country_holder, etcLaw_holder, naeforg_holder) VALUES(" + date_info + "," + curr_money + "," + updown_icon + "," + indi_holder + "," + orga_holder + "," + forg_holder + "," + finance_holder + "," + insurance_holder + "," + tusin_holder + "," + bank_holder + "," + etcFinance_holder + "," + yeongi_holder + "," + samofund_holder + "," + country_holder + "," + etcLaw_holder + "," + naeforg_holder + ");")
+    #cursor.execute("INSERT INTO opt10059schema.table_035420(date_info, curr_money, updown_icon, indi_holder, orga_holder, forg_holder, finance_holder, insurance_holder, tusin_holder, bank_holder, etcFinance_holder, yeongi_holder, samofund_holder, country_holder, etcLaw_holder, naeforg_holder) VALUES(" + date_info + "," + curr_money + "," + updown_icon + "," + indi_holder + "," + orga_holder + "," + forg_holder + "," + finance_holder + "," + insurance_holder + "," + tusin_holder + "," + bank_holder + "," + etcFinance_holder + "," + yeongi_holder + "," + samofund_holder + "," + country_holder + "," + etcLaw_holder + "," + naeforg_holder + ");")
 
 
 
